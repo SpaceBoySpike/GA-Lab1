@@ -2,7 +2,23 @@ name: "Lab 1"
 on:
   push
 jobs:
-  test:
+  Build:
+    runs-on: Ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Build"
+        run: npm run build
+  Test:
     runs-on: Ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,7 +37,7 @@ jobs:
           echo "running tests..."
           npm test
           echo "running tests...done"
-  lint:
+  Lint:
     needs: test
     runs-on: ubuntu-latest
     steps:
