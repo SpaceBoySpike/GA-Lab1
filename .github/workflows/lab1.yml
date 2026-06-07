@@ -19,6 +19,7 @@ jobs:
       - name: "Build"
         run: npm run build
   Test:
+    needs: Build
     runs-on: Ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -38,7 +39,7 @@ jobs:
           npm test
           echo "running tests...done"
   Lint:
-    needs: test
+    needs: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
