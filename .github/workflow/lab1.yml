@@ -1,0 +1,13 @@
+name: "Lab 1"
+on:
+  push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Lint"
+        run:: |
+          echo "linting code..."
+          npm run lint
+          echo "linting code...done"
