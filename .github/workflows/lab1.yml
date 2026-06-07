@@ -22,7 +22,7 @@ jobs:
           npm test
           echo "running tests...done"
   lint:
-    on: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
