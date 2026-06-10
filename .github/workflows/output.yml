@@ -1,6 +1,5 @@
 name: Github output
-on: 
-  workflow_dispatch
+on: workflow_dispatch
 jobs:
   Output:
     runs-on: Ubuntu-latest
