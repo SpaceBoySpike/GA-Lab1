@@ -1,4 +1,4 @@
-name: Github output
+name: Issues
 on: issues
 jobs:
   Output:
