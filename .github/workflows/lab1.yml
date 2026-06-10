@@ -64,4 +64,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: See Issues
-        run: echo "{{ issues }}"
+        run: echo "${{ toJson(github.issues) }}"
