@@ -13,11 +13,10 @@ jobs:
         steps: 
             - name: 'Create Environment'
               run: |
-                gh auth status
-                gh repo view SpaceBoySpike/GA-Lab1
                 echo "Creating Environment for: ${{ github.event.inputs.environment }}"
                 curl -L \
                     -X PUT \
-                    https://api.github.com/repos/${{ github.repository }}/environments/${{ github.event.inputs.environment }} \
+                    "https://api.github.com/repos/${{ github.repository }}/environments/${{ github.event.inputs.environment }} \
                     -H "Accept: application/vnd.github+json" \
-                    -H "Authorization: ${{ secrets.GITHUB_TOKEN }}" \ 
+                    -H "Authorization: ${{ secrets.GITHUB_TOKEN }}"
+                echo curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/environments" | jq -r '.environments[].name'
