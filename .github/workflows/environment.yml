@@ -13,6 +13,8 @@ jobs:
         steps: 
             - name: 'Create Environment'
               run: |
+                gh auth status
+                gh repo view SpaceBoySpike/GA-Lab1
                 echo "Creating Environment for: ${{ github.event.inputs.environment }}"
                 gh api --method POST /repos/${{ github.repository }}/environments/${{ inputs.environment }} 
               env:
