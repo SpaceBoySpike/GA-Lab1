@@ -1,0 +1,19 @@
+name: Creating Environment
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: Environment Name
+                required: true
+                type: string
+jobs:
+    create-environment:
+        runs-on: ubuntu-latest
+
+        steps: 
+            - name: 'Create Environment'
+              run: |
+                echo "Creating Environment for: ${{ github.event.inputs.environment }}"
+                gh api --method POST /repos/${{ github.repository }}/environments/${{ inputs.environment }} 
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
