@@ -16,6 +16,8 @@ jobs:
                 gh auth status
                 gh repo view SpaceBoySpike/GA-Lab1
                 echo "Creating Environment for: ${{ github.event.inputs.environment }}"
-                gh api --method POST /repos/${{ github.repository }}/environments/${{ inputs.environment }} 
-              env:
-                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                curl -L \
+                    -X PUT \
+                    https://api.github.com/repos/${{ github.repository }}/environments/${{ github.event.inputs.environment }} \
+                    -H "Accept: application/vnd.github+json" \
+                    -H "Authorization: ${{ secrets.GITHUB_TOKEN }}" \ 
