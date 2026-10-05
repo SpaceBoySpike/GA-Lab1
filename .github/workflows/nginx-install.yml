@@ -6,7 +6,9 @@ on:
 jobs:
     install-nginx:
         runs-on: ubuntu-latest
-
+        permissions:
+            id-token: write
+            contents: read
         steps:
             - name: Azure Login
               uses: azure/login@v2
