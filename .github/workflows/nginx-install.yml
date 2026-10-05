@@ -20,13 +20,13 @@ jobs:
               run: |
                 az vm run-command invoke \
                     --command-id RunShellScript \
-                    --name vmss-sp-learning \
-                    --resource-group sp-vm-learn \
+                    --name sp-vm-learn \
+                    --resource-group vmss-sp-learning \
                     --scripts "sudo apt update && sudo apt install -y nginx"
             - name: Check Nginx Status
               run: |
                 az vm run-command invoke \
                     --command-id RunShellScript \
-                    --name vmss-sp-learning \
-                    --resource-group sp-vm-learn \
+                    --name sp-vm-learn \
+                    --resource-group vmss-sp-learning \
                     --scripts "systemctl status nginx"
