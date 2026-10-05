@@ -1,0 +1,30 @@
+name: Install Nginx in VM
+
+on:
+    workflow_dispatch:
+
+jobs:
+    install-nginx:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Azure Login
+              uses: azure/login@v2
+              with:
+                client-id: ${{ secrets.AZURE_CLIENT_ID }}
+                tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+                subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+            - name: Install Nginx
+              run: |
+                az vm run-command invoke \
+                    --command-id RunShellScript \
+                    --name vmss-sp-learning \
+                    --resource-group sp-vm-learn \
+                    --scripts "sudo apt update && sudo apt install -y nginx"
+            - name: Check Nginx Status
+              run: |
+                az vm run-command invoke \
+                    --command-id RunShellScript \
+                    --name vmss-sp-learning \
+                    --resource-group sp-vm-learn \
+                    --scripts "systemctl status nginx"
