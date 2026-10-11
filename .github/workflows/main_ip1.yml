@@ -14,13 +14,13 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Input Output Learning 1
+            - name: Sending input to Action
               id: input-output
               uses: ./.github/actions/ip1
               with:
                 name: ${{ github.event.inputs.name }}
 
-            - name: Display Greeting from Action
+            - name: Getting output from Action
               run: |
                 echo "Output from Main yaml"
                 echo "${{ steps.input-output.outputs.greet_output }}"

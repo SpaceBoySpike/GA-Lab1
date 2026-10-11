@@ -14,7 +14,7 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Greet the user
+    - name: printing input from main yaml
       id: greet_user
       shell: bash
       run: |
