@@ -6,11 +6,17 @@ inputs:
     description: 'Name to greet'
     required: true
     default: 'Marimo'
+outputs:
+  greet_output:
+    description: 'Greeting message'
+    value: ${{ steps.greet_user.outputs.greeting }}
 
 runs:
   using: composite
   steps:
     - name: Greet the user
+      id: greet_user
       shell: bash
       run: |
-        echo "Hello, ${{ inputs.name }}!" >> $GITHUB_STEP_SUMMARY
+        greeting="Hello, ${{ inputs.name }}! from main.yaml"
+        echo "greeting=$greeting" >> $GITHUB_OUTPUT
