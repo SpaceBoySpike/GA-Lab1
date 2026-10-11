@@ -2,6 +2,11 @@ name: Main yaml for Input Output Learning
 
 on:
     workflow_dispatch:
+        inputs:
+          name:  
+            description: "Input your name"
+            required: true
+            type: string
 
 jobs:
     input-output:
