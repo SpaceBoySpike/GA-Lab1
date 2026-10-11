@@ -1,0 +1,15 @@
+name: My Input Output Action
+description: This action takes a name as input and outputs a greeting message.
+
+inputs:
+  name:
+    description: 'Name to greet'
+    required: true
+    default: 'Marimo'
+
+runs:
+  using: Composite
+  steps:
+    - name: Greet the user
+      run: |
+        echo "Hello, ${{ inputs.name }}!"

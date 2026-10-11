@@ -1,0 +1,15 @@
+name: Main yaml for Input Output Learning
+
+on:
+    workflow_dispatch:
+
+jobs:
+    input-output:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Input Output Learning 1
+              uses: ./.github/actions/ip1.yml
+              with:
+                name: Roronoa Zoro
