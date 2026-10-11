@@ -13,4 +13,4 @@ runs:
     - name: Greet the user
       shell: bash
       run: |
-        echo "Hello, ${{ inputs.name }}!"
+        echo "Hello, ${{ inputs.name }}!" >> $GITHUB_STEP_SUMMARY
