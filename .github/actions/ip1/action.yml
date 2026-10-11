@@ -8,8 +8,9 @@ inputs:
     default: 'Marimo'
 
 runs:
-  using: Composite
+  using: composite
   steps:
     - name: Greet the user
+      shell: bash
       run: |
         echo "Hello, ${{ inputs.name }}!"
