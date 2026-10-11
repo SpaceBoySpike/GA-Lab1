@@ -18,5 +18,5 @@ runs:
       id: greet_user
       shell: bash
       run: |
-        greeting="Hello, ${{ inputs.name }}! from main.yaml"
+        greeting="Hello, ${{ inputs.name }}! from action.yaml"
         echo "greeting=$greeting" >> $GITHUB_OUTPUT
