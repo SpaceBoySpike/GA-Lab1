@@ -16,4 +16,4 @@ jobs:
                 tag: v1
             - name: Show Image
               run: |
-                echo "Image Built: ${{ steps.docker_build.outputs.image}}"
+                echo "Image Built: ${{ steps.docker_build.outputs.image}}" >> $GITHUB_STEP_SUMMARY
