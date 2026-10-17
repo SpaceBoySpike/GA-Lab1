@@ -12,8 +12,6 @@ jobs:
               uses: ./.github/actions/docker-build
               id: docker_build
               with:
-                context: .
-                file: Dockerfile
                 image_name: my-docker-image
                 tag: v1
             - name: Show Image
