@@ -36,4 +36,4 @@ runs:
     - name: Upload Built Image to Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: IMAGE="${{ inputs.image_name }}:${{ inputs.tag }}"
+        name: ${{ inputs.image_name }}"
