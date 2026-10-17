@@ -1,0 +1,19 @@
+name: Docker Main Workflow
+on: workflow_dispatch
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+            
+            - name: Build Docker Image
+              uses: ./.github/actions/docker-build
+              id: docker_build
+              with:
+                image_name: my-docker-image
+                tag: v1
+            - name: Show Image
+              run: |
+                echo "Image Built: ${{ steps.docker_build.outputs.image}}"

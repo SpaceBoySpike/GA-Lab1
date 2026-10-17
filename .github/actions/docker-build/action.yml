@@ -1,0 +1,28 @@
+name: Building Docker Image
+description: This action will create a Docker Image
+
+inputs:
+  image_name:
+    description: 'Name of the image'
+    required: true
+    default: 'myapp'
+
+  tag:
+    description: 'Tag for the image'
+    required: true
+    default: 'latest'
+outputs:
+  image:
+    description: 'Built Docker Image'
+    value: ${{ steps.build_image.outputs.image }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Build Docker Image
+      id: build_image
+      shell: bash
+      run: |
+        IMAGE="${{ inputs.image_name }}:${{ inputs.tag }}"
+        docker build -t $IMAGE .
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
