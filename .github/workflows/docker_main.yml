@@ -22,3 +22,4 @@ jobs:
               uses: ./.github/actions/docker-push
               with:
                 image_name: ${{ steps.docker_build.outputs.image}}
+                tag: v1
