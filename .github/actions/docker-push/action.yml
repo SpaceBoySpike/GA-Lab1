@@ -20,7 +20,7 @@ runs:
       run: |
         echo "${{ inputs.image_name }}"
         IMAGE=${{ inputs.image_name }}
-        docker load -i $IMAGE.tar
+        docker load -i $IMAGE
 
     - name: Push Docker Image
       shell: bash
