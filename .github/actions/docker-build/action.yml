@@ -37,5 +37,5 @@ runs:
     - name: Upload Built Image to Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.SAFE_NAME }}
-        path: ${{ env.SAFE_NAME }}
+        name: ${{ env.IMAGE }}
+        path: ${{ env.IMAGE }}
