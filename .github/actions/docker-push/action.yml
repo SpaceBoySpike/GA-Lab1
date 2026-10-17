@@ -6,6 +6,10 @@ inputs:
     description: 'Name of the image'
     required: true
     default: 'myapp'
+  tag:
+    description: 'Tag for the image'
+    required: true
+    default: 'latest'
 
 runs:
   using: composite
@@ -13,12 +17,12 @@ runs:
     - name: Download Image Artifact
       uses: actions/download-artifact@v4
       with:
-        name: ${{ inputs.image_name }}
+        name: IMAGE="${{ inputs.image_name }}:${{ inputs.tag }}"
 
     - name: Load Docker Image
       shell: bash
       run: |
-        IMAGE="${{ inputs.image_name }}"
+        IMAGE="${{ inputs.image_name }}:${{ inputs.tag }}"
         docker load -i $IMAGE.tar
     - name: Show Image
       shell: bash
