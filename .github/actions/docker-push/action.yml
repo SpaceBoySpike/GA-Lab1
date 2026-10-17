@@ -25,7 +25,7 @@ runs:
     - name: Push Docker Image
       shell: bash
       run: |
-        IMAGE=${{ env.SAFE_ARTIFACT_NAME }}
+        IMAGE=${{ inputs.image_name }}
         docker tag $IMAGE synoxy/github_action:v1
         if docker push synoxy/github_action:v1; then
           echo "✅ Docker push successful" >> $GITHUB_STEP_SUMMARY
