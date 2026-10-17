@@ -9,6 +9,9 @@ inputs:
   tag:
     description: 'Tag for the image'
     required: true
+  docker-token:
+    description: 'Docker registry token'  
+    required: true
 
 runs:
   using: composite
@@ -28,7 +31,7 @@ runs:
     - name: Push Docker Image
       shell: bash
       run: |
-        docker login -u synoxy -p ${{ secrets.DOCKER_TOKEN }}
+        docker login -u synoxy -p ${{ inputs.docker-token }}
         IMAGE="${{ env.IMAGE }}"
         docker tag $IMAGE synoxy/github_action:v1
         if docker push synoxy/github_action:v1; then
