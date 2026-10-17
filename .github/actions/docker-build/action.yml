@@ -26,3 +26,14 @@ runs:
         IMAGE="${{ inputs.image_name }}:${{ inputs.tag }}"
         docker build -t $IMAGE . -f ./.github/actions/docker-build/Dockerfile
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
+    
+    - name: Save image
+      shell: bash
+      run: |
+        IMAGE="${{ inputs.image_name }}:${{ inputs.tag }}"
+        docker save $IMAGE -o $IMAGE.tar
+    
+    - name: Upload Built Image to Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: $IMAGE

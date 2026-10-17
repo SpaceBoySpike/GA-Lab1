@@ -1,0 +1,38 @@
+name: Docker Push Action
+description: This action will push a Docker Image to a registry
+
+inputs:
+  image_name:
+    description: 'Name of the image'
+    required: true
+    default: 'myapp'
+
+runs:
+  using: composite
+  steps:
+    - name: Download Image Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.image_name }}
+
+    - name: Load Docker Image
+      shell: bash
+      run: |
+        IMAGE="${{ inputs.image_name }}"
+        docker load -i $IMAGE.tar
+    - name: Show Image
+      shell: bash
+      run: |
+        docker images >> $GITHUB_STEP_SUMMARY
+
+    - name: Push Docker Image
+      shell: bash
+      run: |
+        IMAGE="${{ inputs.image_name }}"
+        docker tag $IMAGE synoxy/github_action:v1
+        if docker push synoxy/github_action:v1; then
+          echo "✅ Docker push successful" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Docker push failed" >> $GITHUB_STEP_SUMMARY
+          exit 1
+        fi

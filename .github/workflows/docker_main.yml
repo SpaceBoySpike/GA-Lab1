@@ -17,3 +17,8 @@ jobs:
             - name: Show Image
               run: |
                 echo "Image Built: ${{ steps.docker_build.outputs.image}}" >> $GITHUB_STEP_SUMMARY
+            
+            - name: Push Docker Image
+              uses: ./.github/actions/docker-push
+              with:
+                image_name: ${{ steps.docker_build.outputs.image}}
