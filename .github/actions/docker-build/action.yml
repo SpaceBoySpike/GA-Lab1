@@ -10,7 +10,7 @@ inputs:
   tag:
     description: 'Tag for the image'
     required: true
-    default: 'latest'
+
 outputs:
   image:
     description: 'Built Docker Image'
