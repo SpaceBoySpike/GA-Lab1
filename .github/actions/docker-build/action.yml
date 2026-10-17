@@ -32,6 +32,7 @@ runs:
       id: save_image
       run: |
         IMAGE="${{ inputs.image_name }}:${{ inputs.tag }}"
+        echo "IMAGE=$IMAGE" >> $GITHUB_ENV
         SAFE_ARTIFACT_NAME=$(echo "$IMAGE.tar" | tr ':' '-')
         docker save $IMAGE -o $SAFE_ARTIFACT_NAME
         echo "SAFE_ARTIFACT_NAME=$SAFE_ARTIFACT_NAME" >> $GITHUB_ENV
