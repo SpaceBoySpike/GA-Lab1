@@ -13,18 +13,18 @@ runs:
     - name: Download Image Artifact
       uses: actions/download-artifact@v4
       with:
-        name: IMAGE="${{ inputs.image_name }}
+        name: ${{ env.SAFE_ARTIFACT_NAME }}
 
     - name: Load Docker Image
       shell: bash
       run: |
-        IMAGE="${{ inputs.image_name }}
+        IMAGE=${{ env.SAFE_ARTIFACT_NAME }}
         docker load -i $IMAGE.tar
-        
+
     - name: Push Docker Image
       shell: bash
       run: |
-        IMAGE="${{ inputs.image_name }}"
+        IMAGE=${{ env.SAFE_ARTIFACT_NAME }}
         docker tag $IMAGE synoxy/github_action:v1
         if docker push synoxy/github_action:v1; then
           echo "✅ Docker push successful" >> $GITHUB_STEP_SUMMARY
