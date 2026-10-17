@@ -33,9 +33,9 @@ runs:
       run: |
         IMAGE="${{ inputs.image_name }}:${{ inputs.tag }}"
         SAFE_ARTIFACT_NAME=$(echo "$IMAGE.tar" | tr ':' '-')
-        docker save $SAFE_ARTIFACT_NAME -o $IMAGE.tar
+        docker save $SAFE_ARTIFACT_NAME -o $SAFE_ARTIFACT_NAME.tar
         echo "SAFE_ARTIFACT_NAME=$SAFE_ARTIFACT_NAME" >> $GITHUB_ENV
-        echo "SAFE_ARTIFACT_NAME=$SAFE_NAME" >> $GITHUB_OUTPUT
+        echo "SAFE_ARTIFACT_NAME=$SAFE_ARTIFACT_NAME" >> $GITHUB_OUTPUT
     
     - name: Upload Built Image to Artifacts
       uses: actions/upload-artifact@v4
