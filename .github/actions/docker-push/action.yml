@@ -13,12 +13,13 @@ runs:
     - name: Download Image Artifact
       uses: actions/download-artifact@v4
       with:
-        name: ${{ env.SAFE_ARTIFACT_NAME }}
+        name: ${{ inputs.image_name }}
 
     - name: Load Docker Image
       shell: bash
       run: |
-        IMAGE=${{ env.SAFE_ARTIFACT_NAME }}
+        echo "${{ inputs.image_name }}"
+        IMAGE=${{ inputs.image_name }}
         docker load -i $IMAGE.tar
 
     - name: Push Docker Image
