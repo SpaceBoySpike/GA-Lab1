@@ -30,6 +30,6 @@
     "function.prototype.name": "^1.1.8",
     "jsdom": "^25.0.1",
     "vite": "^5.3.4",
-    "vitest": "^2.1.8"
+    "vitest": "^5.0.5"
   }
 }
