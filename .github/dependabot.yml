@@ -17,5 +17,5 @@ updates:
     open-pull-requests-limit: 0
     schedule:
       interval: "daily"
-      time: "08:07"
+      time: "08:12"
       timezone: "UTC"
