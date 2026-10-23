@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: "daily"
       time: "06:10"
-      timezone: "Etc/UTC"
+      timezone: "UTC"
     labels:
       - "dependencies"
       - "github-actions"
@@ -16,7 +16,7 @@ updates:
     schedule:
       interval: "daily"
       time: "06:20"
-      timezone: "Etc/UTC"
+      timezone: "UTC"
     labels:
       - "dependencies"
       - "npm"

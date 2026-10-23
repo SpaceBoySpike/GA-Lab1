@@ -1,8 +1,6 @@
 name: "Lab 1"
 on:
   push:
-  pull_request:
-    types: [opened, synchronize, reopened]
 jobs:
   Build:
     runs-on: Ubuntu-latest
@@ -61,23 +59,53 @@ jobs:
           npm run lint
           echo "linting code...done"
 
-  DependabotSummary:
-    if: always() && github.actor == 'dependabot[bot]'
-    needs: [Build, Test, Lint]
+  VulnerabilityReport:
     runs-on: ubuntu-latest
     steps:
-      - name: "Write Dependabot results to summary"
-        env:
-          BUILD_RESULT: ${{ needs.Build.result }}
-          TEST_RESULT: ${{ needs.Test.result }}
-          LINT_RESULT: ${{ needs.Lint.result }}
+      - uses: actions/checkout@v3
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Audit dependencies and summarize vulnerabilities"
         run: |
-          {
-            echo "## Dependabot CI results"
-            echo
-            echo "| Job | Result |"
-            echo "| --- | --- |"
-            echo "| Build | ${BUILD_RESULT} |"
-            echo "| Test | ${TEST_RESULT} |"
-            echo "| Lint | ${LINT_RESULT} |"
-          } >> "$GITHUB_STEP_SUMMARY"
+          npm audit --json > audit-report.json || true
+          node <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync('audit-report.json', 'utf8'));
+          const summary = process.env.GITHUB_STEP_SUMMARY;
+
+          if (report.error) {
+            fs.appendFileSync(summary, `## npm vulnerabilities\n\nAudit could not complete: ${report.error.summary}\n`);
+            process.exitCode = 1;
+          } else {
+            const vulnerabilities = Object.entries(report.vulnerabilities || {});
+            let output = '## npm vulnerabilities\n\n';
+
+            if (vulnerabilities.length === 0) {
+              output += 'No vulnerabilities found.\n';
+            } else {
+              const totals = report.metadata?.vulnerabilities || {};
+              output += `Found ${vulnerabilities.length} affected package(s). Severity totals: ${Object.entries(totals).map(([severity, count]) => `${severity}: ${count}`).join(', ')}.\n\n`;
+              output += '| Package | Severity | Direct | Range | Advisory |\n| --- | --- | --- | --- | --- |\n';
+
+              for (const [name, item] of vulnerabilities) {
+                const advisories = (item.via || [])
+                  .filter((entry) => typeof entry === 'object')
+                  .map((entry) => entry.title)
+                  .filter(Boolean)
+                  .join(', ') || 'See npm audit details';
+                const escape = (value) => String(value).replaceAll('|', '\\|');
+                output += `| ${escape(name)} | ${escape(item.severity)} | ${item.isDirect ? 'Yes' : 'No'} | ${escape(item.range)} | ${escape(advisories)} |\n`;
+              }
+            }
+
+            fs.appendFileSync(summary, output);
+          }
+          NODE
