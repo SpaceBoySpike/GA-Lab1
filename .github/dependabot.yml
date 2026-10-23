@@ -17,7 +17,7 @@ updates:
     open-pull-requests-limit: 0
     schedule:
       interval: "daily"
-      time: "07:40"
+      time: "08:03"
       timezone: "UTC"
     labels:
       - "dependencies"
