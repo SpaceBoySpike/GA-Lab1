@@ -4,8 +4,19 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval:
-        time: 06:00
+      interval: "daily"
+      time: "06:10"
+      timezone: "Etc/UTC"
     labels:
       - "dependencies"
       - "github-actions"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "06:20"
+      timezone: "Etc/UTC"
+    labels:
+      - "dependencies"
+      - "npm"
